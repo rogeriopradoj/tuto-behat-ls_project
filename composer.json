@@ -1,0 +1,7 @@
+{
+    "name": "rogeriopradoj/tuto-behat-ls_project",
+    "description": "Just following the quick intro to Behat, available on http://docs.behat.org/quick_intro.html",
+    "require": {
+        "behat/behat": "~2"
+    }
+}
