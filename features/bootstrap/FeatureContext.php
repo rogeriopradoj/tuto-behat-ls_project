@@ -50,4 +50,37 @@ class FeatureContext extends BehatContext
             );
         }
     }
+
+    /**
+     * recursively remove a directory
+     *
+     * @link http://www.php.net/manual/en/function.rmdir.php#108113
+     * 
+     * @param  string $dir path
+     * @return bool The return of rmdir function
+     */
+    private function rrmdir($dir)
+    {
+        foreach (glob($dir . '/*') as $file) {
+            if (is_dir($file)) {
+                $this->rrmdir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dir);
+    }
+
+    /**
+     * Remove test folders
+     *
+     * @AfterScenario
+     */
+    public function removeTestFolders($event)
+    {
+        $dir = dirname(__FILE__) . '/../../test';
+        if (file_exists($dir)) {
+            $this->rrmdir($dir);
+        }
+    }
 }
